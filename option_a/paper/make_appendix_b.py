@@ -131,8 +131,8 @@ FL = {"null": "none", "intercept": "intercept shift", "slope": "slope 0.6", "lin
 cp = pd.read_csv(os.path.join(OA, "COMPARE.csv"), keep_default_na=False, na_values=["NA", ""])
 f3 = lambda v: "--" if pd.isna(v) else f"{v:.2f}"
 out_c = [r"\begin{table}[ht]\centering\small",
-         r"\caption{Detection at $n=1{,}000$, the same data sets as Table~2 of the paper: rejection rate at level 0.05 of the "
-         r"procedure's global test (the intersection of all groups) and of single tests; under no misfit the rate is the level. A part is named in marginally fewer data sets than the global test rejects (Table 2 of the paper). The le Cessie test was run in-sample only. "
+         r"\caption{Detection at $n=1{,}000$, the same data sets as Figure~1 of the paper: rejection rate at level 0.05 of the "
+         r"procedure's global test (the intersection of all groups) and of single tests; under no misfit the rate is the level. A part is named in marginally fewer data sets than the global test rejects (Figure 1 of the paper). The le Cessie test was run in-sample only. "
          r"Externally the Hosmer--Lemeshow test uses deciles of the frozen predictions with 10 degrees of freedom; the "
          r"calibration belt is that of GiViTI. 300 data sets per cell (1,000 under no misfit).}\label{tab:compare}",
          r"\begin{tabular}{llrrrrr}\toprule setting & departure & procedure & Hosmer--Lemeshow & Spiegelhalter & belt & le Cessie\\ \midrule"]
