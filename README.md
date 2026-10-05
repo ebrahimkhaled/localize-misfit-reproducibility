@@ -18,6 +18,7 @@ option_a/support_split_first.R     SUPPORT split-first update-and-retest (lower 
 option_a/support_localize.R        first SUPPORT run (superseded by support_v2.R; kept for the record)
 option_a/support_timing.R          timing on the SUPPORT data
 option_a/burn_localize.R, burn_revise.R   burn application (in-sample, revisions, 20 cross-centre facility splits)
+option_a/burn_null.R                     the same splits with outcomes simulated from a correct model (estimation-error baseline)
 option_a/compare_detect.R          single tests on the main simulation's data sets; analyze_compare.py -> COMPARE.csv
 option_a/analyze_multiplicity.py   closure vs naive, Bonferroni and Holm naming, from option_a/rows/ -> MULTIPLICITY.csv
 option_a/run_sim_small.R           small samples (n = 200, 300); analyze_sim_small.py -> SIM_SMALL.csv

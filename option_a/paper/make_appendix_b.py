@@ -115,6 +115,12 @@ out_b += [r"\midrule & \multicolumn{4}{l}{cross-centre validation: share of 20 f
 for m in ["B0", "B3"]:
     x = bs[bs.model == m]
     out_b.append(f"{LABM[m]} & " + " & ".join(f"{x[c].mean():.2f}" for c in ["named_INTERCEPT", "named_SLOPE", "named_LINK", "named_COV"]) + r"\\")
+bn = pd.read_csv(os.path.join(HERE, "..", "burn_null.csv"))
+out_b += [r"\midrule & \multicolumn{4}{l}{same splits, outcomes simulated from the model fitted to all patients}\\",
+          r"& \multicolumn{4}{l}{(model right by construction; mean over 25 data sets)}\\ \midrule"]
+for m in ["B0", "B3"]:
+    x = bn[bn.model == m]
+    out_b.append(f"{LABM[m]} & " + " & ".join(f"{B(x[c]).mean():.2f}" for c in ["named_INTERCEPT", "named_SLOPE", "named_LINK", "named_COV"]) + r"\\")
 out_b += [r"\bottomrule\end{tabular}\end{table}", ""]
 open(os.path.join(HERE, "tab_appendix_b.tex"), "a", encoding="utf-8", newline="\n").write("\n".join(out_b))
 
@@ -126,7 +132,7 @@ cp = pd.read_csv(os.path.join(OA, "COMPARE.csv"), keep_default_na=False, na_valu
 f3 = lambda v: "--" if pd.isna(v) else f"{v:.2f}"
 out_c = [r"\begin{table}[ht]\centering\small",
          r"\caption{Detection at $n=1{,}000$, the same data sets as Table~2 of the paper: rejection rate at level 0.05 of the "
-         r"procedure's global test (some part named) and of single tests; under no misfit the rate is the level. "
+         r"procedure's global test (the intersection of all groups) and of single tests; under no misfit the rate is the level. A part is named in marginally fewer data sets than the global test rejects (Table 2 of the paper). The le Cessie test was run in-sample only. "
          r"Externally the Hosmer--Lemeshow test uses deciles of the frozen predictions with 10 degrees of freedom; the "
          r"calibration belt is that of GiViTI. 300 data sets per cell (1,000 under no misfit).}\label{tab:compare}",
          r"\begin{tabular}{llrrrrr}\toprule setting & departure & procedure & Hosmer--Lemeshow & Spiegelhalter & belt & le Cessie\\ \midrule"]
