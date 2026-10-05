@@ -1,0 +1,11 @@
+"model","stage","rung","n","named","INTERCEPT","SLOPE","LINK","COV","observed","predicted"
+"M0","verdict on A","--",2065,"INTERCEPT",0.001,0.051,0.592,0.927,0.108958837772397,0.39965567597287
+"M0","retest on B (prescribed rung)","intercept update",2065,"COV",0.164,0.147,0.082,0.001,0.0997578692493947,0.109447960988007
+"M0","retest on B","logistic recalibration",2065,"COV",0.172,0.025,0.061,0.001,0.0997578692493947,0.109530322267964
+"M0","retest on B","flexible recalibration",2065,"SLOPE + COV",0.179,0.011,0.055,0.001,0.0997578692493947,0.109242633210011
+"M0","retest on B","model revision",2065,"LINK + COV",0.198,0.109,0.004,0.001,0.0997578692493947,0.108868705470343
+"M2","verdict on A","--",2065,"INTERCEPT + SLOPE + LINK",0.001,0.001,0.004,0.95,0.108958837772397,0.376568704494589
+"M2","retest on B","intercept update",2065,"COV",0.198,0.42,0.234,0.002,0.0997578692493947,0.108902841386516
+"M2","retest on B","logistic recalibration",2065,"COV",0.212,0.817,0.277,0.001,0.0997578692493947,0.108925747791119
+"M2","retest on B (prescribed rung)","flexible recalibration",2065,"COV",0.188,0.867,0.259,0.002,0.0997578692493947,0.109099298930618
+"M2","retest on B","model revision",2065,"COV",0.237,0.023,0.406,0.009,0.0997578692493947,0.107431532505139

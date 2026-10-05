@@ -1,0 +1,3 @@
+"block","file","rep","dealias","named_LINK","named_COV","p_LINK","p_COV"
+"9","logit_clean_n1000",58,FALSE,FALSE,FALSE,0.055,0.595
+"9","logit_clean_n1000",58,TRUE,FALSE,FALSE,0.08,0.595

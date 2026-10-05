@@ -1,0 +1,7 @@
+"setting","model","n","named","LINK","COV","global","INTERCEPT","SLOPE"
+"in-sample","M0",8873,"LINK + COV",0.005,0.005,0.005,NA,NA
+"in-sample","M2",8873,"LINK + COV",0.005,0.005,0.005,NA,NA
+"external, random","M0",4437,"LINK + COV",0.001,0.001,0.001,0.324,0.319
+"external, random","M2",4437,"LINK",0.005,0.079,0.007,0.324,0.167
+"external, transported","M0",4130,"INTERCEPT + SLOPE",0.463,0.083,0.001,0.001,0.001
+"external, transported","M2",4130,"INTERCEPT + SLOPE + LINK",0.001,0.954,0.001,0.001,0.001

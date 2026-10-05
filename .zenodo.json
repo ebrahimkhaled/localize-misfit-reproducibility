@@ -1,0 +1,36 @@
+{
+  "title": "Reproducibility archive: One goodness-of-fit test is not enough: error-controlled localization of misfit in logistic risk models",
+  "upload_type": "dataset",
+  "version": "1.0.0",
+  "language": "eng",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Ebrahim, Ebrahim Khaled",
+      "affiliation": "Department of Statistics, Faculty of Business, Alexandria University, Egypt",
+      "orcid": "0009-0006-7839-8778"
+    },
+    {
+      "name": "El-Kotory, Ahmed",
+      "affiliation": "Department of Statistics, Faculty of Business, Alexandria University, Egypt",
+      "orcid": "0009-0000-1485-0768"
+    },
+    {
+      "name": "Hussein, Osama Abd El-Aziz",
+      "affiliation": "Department of Statistics, Faculty of Business, Alexandria University, Egypt",
+      "orcid": "0000-0002-6576-4912"
+    }
+  ],
+  "description": "<p>Code, per-data-set results and input data for the study of error-controlled localization of misfit in logistic risk models: a closed-testing procedure that splits a misfit into four orthogonal parts (calibration in the large, calibration slope, link shape, covariate structure) and names the parts that fail, in-sample and in external validation.</p><p>The archive holds the R implementation (localize_groups.R), the simulation and application scripts, one file per simulation cell with one row per data set, the summary files behind every table and figure, the scripts that write the tables and the figure, the public SUPPORT2 data and the stored data sets of the corrupted-records check. Code is licensed GPL-3; results and documentation CC BY 4.0.</p>",
+  "keywords": [
+    "goodness-of-fit",
+    "logistic regression",
+    "calibration",
+    "closed testing",
+    "external validation",
+    "model updating",
+    "clinical prediction model",
+    "reproducibility"
+  ]
+}

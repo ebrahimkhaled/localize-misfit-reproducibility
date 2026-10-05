@@ -1,0 +1,7 @@
+fam,dealias,reps,LINK,COV
+cov,False,200,0.055,0.415
+cov,True,200,0.03,0.385
+link,False,200,0.66,0.045
+link,True,200,0.01,0.03
+null,False,200,0.025,0.025
+null,True,200,0.02,0.02

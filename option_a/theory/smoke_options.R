@@ -1,0 +1,25 @@
+## archive root: the environment variable LOCALIZE_ARCHIVE_ROOT, or the working directory (see README)
+.ROOT <- normalizePath(Sys.getenv("LOCALIZE_ARCHIVE_ROOT", "."), winslash = "/")
+Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
+# smoke_options.R -- the three options added on 2026-10-05 (multiplier calibration, cov_df = "auto", dealias)
+suppressMessages(library(splines))
+source(file.path(.ROOT, "option_a/R/localize_groups.R"))
+set.seed(5)
+n <- 2000; X <- matrix(rnorm(n * 5), n, 5, dimnames = list(NULL, paste0("x", 1:5)))
+b0 <- c(-0.5, 0.5, 0.8, 0.6, 0.4, 0.3); eta <- drop(cbind(1, X) %*% b0); p <- plogis(eta)
+y <- rbinom(n, 1, plogis(eta + 0.8 * X[, 1] * X[, 3]))
+cat("step 1\n"); flush.console()
+for (cal in c("montecarlo", "multiplier")) {
+  r <- localize_external(y, p, X, M = 499, calibration = cal)
+  cat(cal, ":", r$named, "|", round(r$intersection[1:4], 3), "\n"); flush.console()
+}
+cat("step 2\n"); flush.console()
+r <- localize_external(y, p, X, M = 199, cov_df = "auto"); cat("cov_df auto:", r$named, "\n"); flush.console()
+cat("step 3\n"); flush.console()
+x2 <- rexp(n) + 0.5 * X[, 1]^2; Xs <- cbind(x1 = X[, 1], x2 = x2)
+d <- data.frame(Xs, y = rbinom(n, 1, plogis(-1 + 0.6 * X[, 1] + 0.5 * x2)))
+f <- glm(y ~ x1 + x2, binomial, d)
+for (da in c(FALSE, TRUE)) {
+  r <- localize_insample(f, Xs, B = 99, dealias = da)
+  cat("dealias", da, ":", r$named, "|", round(r$intersection, 3), "\n"); flush.console()
+}
