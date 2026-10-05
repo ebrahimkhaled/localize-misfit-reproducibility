@@ -10,6 +10,7 @@ code that produced those results.
 
 ```
 option_a/R/localize_groups.R      the procedure: localize_external() and localize_insample()
+option_a/R/localize_plot.R        the verdict display: plot_localize(), localize_compass(), localize_lattice()
 option_a/run_sim_groups.R          main simulation (Table 2); results in option_a/rows/, summary SIM_GROUPS.csv
 option_a/analyze_sim_groups.py     builds SIM_GROUPS.csv from option_a/rows/
 option_a/run_purity_prob.R         probability-scale purity check; option_a/rows_prob/, PURITY_PROB.csv
@@ -23,11 +24,12 @@ option_a/compare_detect.R          single tests on the main simulation's data se
 option_a/analyze_multiplicity.py   closure vs naive, Bonferroni and Holm naming, from option_a/rows/ -> MULTIPLICITY.csv
 option_a/run_sim_small.R           small samples (n = 200, 300); analyze_sim_small.py -> SIM_SMALL.csv
 option_a/sim_robust_power.R        the robust option on the main data sets -> ROBUST_POWER.csv
-option_a/paper/make_support_figure.R   Figure 4
+option_a/paper/make_support_figure.R   Web Figure B.1
 option_a/theory/check_*.R          numerical checks of the theory (Web Appendix A) and the additional studies (Web Appendix B)
 option_a/theory/make_numerics.py   tables of Web Appendix A
 option_a/paper/make_tables.py      Table 1 of the paper (and the table versions of Figures 1 and 3)
 option_a/paper/make_table_figures.R   Figures 1 and 3
+option_a/paper/make_compass_figure.R  Figure 4 (from support_closure_full.rds, written by option_a/support_closure_full.R)
 option_a/paper/make_appendix_b.py  tables of Web Appendix B
 option_a/paper/make_figure.R       Figure 2
 localize_robust/                   corrupted-records check (run_groups_corruption.R, rows_groups/, CORRUPT_GROUPS.csv;
