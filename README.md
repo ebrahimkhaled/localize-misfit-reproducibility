@@ -17,12 +17,19 @@ option_a/support_v2.R              SUPPORT application (in-sample, de-aliased, r
 option_a/support_split_first.R     SUPPORT split-first update-and-retest (lower rows of Table 3)
 option_a/support_localize.R        first SUPPORT run (superseded by support_v2.R; kept for the record)
 option_a/support_timing.R          timing on the SUPPORT data
+option_a/burn_localize.R, burn_revise.R   burn application (in-sample, revisions, 20 cross-centre facility splits)
+option_a/compare_detect.R          single tests on the main simulation's data sets; analyze_compare.py -> COMPARE.csv
+option_a/analyze_multiplicity.py   closure vs naive, Bonferroni and Holm naming, from option_a/rows/ -> MULTIPLICITY.csv
+option_a/run_sim_small.R           small samples (n = 200, 300); analyze_sim_small.py -> SIM_SMALL.csv
+option_a/sim_robust_power.R        the robust option on the main data sets -> ROBUST_POWER.csv
+option_a/paper/make_support_figure.R   Figure 2
 option_a/theory/check_*.R          numerical checks of the theory (Web Appendix A) and the additional studies (Web Appendix B)
 option_a/theory/make_numerics.py   tables of Web Appendix A
 option_a/paper/make_tables.py      Tables 1-3 of the paper
 option_a/paper/make_appendix_b.py  tables of Web Appendix B
 option_a/paper/make_figure.R       Figure 1
-localize_robust/                   corrupted-records check (run_groups_corruption.R, rows_groups/, CORRUPT_GROUPS.csv)
+localize_robust/                   corrupted-records check (run_groups_corruption.R, rows_groups/, CORRUPT_GROUPS.csv;
+                                   the robust option: run_groups_robust.R, rows_groups_robust/, CORRUPT_ROBUST.csv)
 data/support2.csv                  SUPPORT2 (UCI Machine Learning Repository, CC BY 4.0)
 data/battery/                      stored data-set seeds and fingerprints for the corrupted-records check
 MANIFEST.sha256                    sha256 of every file
@@ -30,8 +37,10 @@ MANIFEST.sha256                    sha256 of every file
 
 ## How to run
 
-R 4.4 or later with the packages `splines`, `parallel` and `nnet` (all shipped with R); Python 3 with `pandas` and
-`numpy` for the table builders.
+R 4.4 or later with the packages `splines`, `parallel` and `nnet` (all shipped with R), `aplore3` (burn data),
+`ebrahim.gof` (2.8.0 or later) and `givitiR` (the comparison with single tests); Python 3 with `pandas` and `numpy`
+for the table builders. The procedure is also in the R package `ebrahim.gof` as `localize.external()` and
+`localize.gof()` (from version 2.10.0).
 
 Every R script finds its files from the archive root, taken from the environment variable `LOCALIZE_ARCHIVE_ROOT`
 or, if it is unset, the working directory:

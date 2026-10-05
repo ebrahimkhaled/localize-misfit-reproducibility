@@ -106,8 +106,11 @@ Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
   }, TRUE))
 }
 
-## closure over the groups, given member p-values for the observed data (column 1) and the reference draws
-.closure <- function(P, groups, alpha) {
+## closure over the groups, given member p-values for the observed data (column 1) and the reference draws.
+## naming = "closure": a group is named when every intersection containing it rejects (Cauchy intersections);
+## "holm" / "bonferroni": the same groups' own (single-group) p-values with Holm's or Bonferroni's correction, which are
+## closed procedures with Bonferroni intersections and so share the strong familywise guarantee
+.closure <- function(P, groups, alpha, naming = "closure") {
   names_g <- names(groups)
   pint <- list()
   for (r in seq_along(names_g)) for (S in utils::combn(names_g, r, simplify = FALSE)) {
@@ -115,18 +118,34 @@ Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
     stat <- colMeans(.cauchy(P[rows, , drop = FALSE]))
     pint[[paste(S, collapse = "+")]] <- (1 + sum(stat[-1] >= stat[1])) / length(stat)
   }
-  named <- vapply(names_g, function(g) all(unlist(pint[grepl(paste0("(^|\\+)", g, "($|\\+)"), names(pint))]) <= alpha), TRUE)
-  list(named = names_g[named], intersection = unlist(pint))
+  single <- unlist(pint[names_g])
+  named <- switch(naming,
+    closure    = vapply(names_g, function(g) all(unlist(pint[grepl(paste0("(^|\\+)", g, "($|\\+)"), names(pint))]) <= alpha), TRUE),
+    holm       = stats::p.adjust(single, "holm") <= alpha,
+    bonferroni = stats::p.adjust(single, "bonferroni") <= alpha)
+  list(named = names_g[named], intersection = unlist(pint), naming = naming)
+}
+
+## normal scores, the robust option: each continuous column and the score are replaced by qnorm(rank / (n + 1)), so that
+## no record can carry more than a bounded share of any statistic however extreme its covariate values are; columns
+## with four or fewer distinct values (binary, small ordinal) are left as they are
+.nscore <- function(v) stats::qnorm(rank(v, ties.method = "average") / (length(v) + 1))
+.robust_cols <- function(X) {
+  X <- as.matrix(X)
+  for (j in seq_len(ncol(X))) if (length(unique(X[, j])) > 4) X[, j] <- .nscore(X[, j])
+  X
 }
 
 ## EXTERNAL validation of frozen predictions p (from any model) for outcomes y, covariates X.
 ## calibration = "montecarlo": y* ~ Bernoulli(p), exact under no misfit (Theorem A.3, local alternatives);
 ## calibration = "multiplier": robust variance and sign-flipped residuals, so that a group whose part of the misfit is
 ## zero on the probability scale keeps its level for departures of any size (Theorem A.5), asymptotically
-localize_external <- function(y, p, X, M = 999L, alpha = 0.05, calibration = c("montecarlo", "multiplier"), cov_df = 5) {
-  calibration <- match.arg(calibration)
+localize_external <- function(y, p, X, M = 999L, alpha = 0.05, calibration = c("montecarlo", "multiplier"), cov_df = 5,
+                              naming = c("closure", "holm", "bonferroni"), robust = FALSE) {
+  calibration <- match.arg(calibration); naming <- match.arg(naming)
   ## predictions of exactly 0 or 1 would give an infinite score; keep them just inside (0, 1)
   X <- as.matrix(X); p <- pmin(pmax(p, 1e-10), 1 - 1e-10); eta <- stats::qlogis(p); w <- p * (1 - p)
+  if (robust) { eta <- .nscore(eta); X <- .robust_cols(X) }   # bases built on normal scores (bounded influence)
   r0 <- y - p
   mem <- .build_members(eta, X, w, external = TRUE, r0 = if (calibration == "multiplier") r0 else NULL, cov_df = cov_df)
   R <- if (calibration == "montecarlo") {
@@ -138,24 +157,31 @@ localize_external <- function(y, p, X, M = 999L, alpha = 0.05, calibration = c("
   P <- do.call(rbind, lapply(unlist(mem, recursive = FALSE), function(f) f(R)))
   groups <- lapply(names(mem), function(g) grep(paste0("^", g, "\\."), rownames(P)))
   names(groups) <- names(mem)
-  out <- .closure(P, groups, alpha)
-  out$members <- P[, 1]; out$setting <- "external validation"; out$calibration <- calibration; out
+  out <- .closure(P, groups, alpha, naming)
+  out$members <- P[, 1]; out$setting <- "external validation"; out$calibration <- calibration; out$robust <- robust; out
 }
 
-## IN-SAMPLE checking of a fitted binomial glm (logit link); covariates = the model frame's numeric predictors
-localize_insample <- function(fit, X, B = 199L, alpha = 0.05, dealias = FALSE, cov_df = 5) {
+## IN-SAMPLE checking of a fitted binomial glm (logit link); covariates = the model frame's numeric predictors.
+## robust = TRUE builds the bases on normal scores of the covariates, the model columns and the fitted score; the
+## bootstrap refits the model on the original design, so the level does not depend on the choice of bases
+localize_insample <- function(fit, X, B = 199L, alpha = 0.05, dealias = FALSE, cov_df = 5,
+                              naming = c("closure", "holm", "bonferroni"), robust = FALSE) {
+  naming <- match.arg(naming)
   X <- as.matrix(X); mm <- stats::model.matrix(fit)
+  Xb <- if (robust) .robust_cols(X) else X
+  Zb <- if (robust) .robust_cols(mm[, -1, drop = FALSE]) else mm[, -1, drop = FALSE]
+  sc <- function(ph) if (robust) .nscore(stats::qlogis(ph)) else stats::qlogis(ph)
   ph0 <- as.numeric(stats::fitted(fit))
-  dcols <- if (dealias) .curved_cols(mm[, -1, drop = FALSE], stats::qlogis(ph0), ph0 * (1 - ph0)) else NULL
+  dcols <- if (dealias) .curved_cols(Zb, sc(ph0), ph0 * (1 - ph0)) else NULL
   dE <- NULL
   if (length(dcols)) {   # fitted once, on the observed score, and frozen
-    e0 <- stats::qlogis(ph0); w0 <- ph0 * (1 - ph0)
-    Zc <- mm[, -1, drop = FALSE][, dcols, drop = FALSE]
+    e0 <- sc(ph0); w0 <- ph0 * (1 - ph0)
+    Zc <- Zb[, dcols, drop = FALSE]
     dE <- Zc - .wperp(Zc, cbind(1, splines::ns(e0, df = 3)), w0)
   }
   members_at <- function(f) {
-    ph <- as.numeric(stats::fitted(f)); eta <- stats::qlogis(ph)
-    .build_members(eta, X, ph * (1 - ph), Zfit = mm[, -1, drop = FALSE], external = FALSE, cov_df = cov_df, dealias_E = dE)
+    ph <- as.numeric(stats::fitted(f))
+    .build_members(sc(ph), Xb, ph * (1 - ph), Zfit = Zb, external = FALSE, cov_df = cov_df, dealias_E = dE)
   }
   pv_of <- function(f, y) { m <- members_at(f); r <- matrix(y - as.numeric(stats::fitted(f)))
                             vapply(unlist(m, recursive = FALSE), function(g) g(r), 0) }
@@ -173,7 +199,7 @@ localize_insample <- function(fit, X, B = 199L, alpha = 0.05, dealias = FALSE, c
   rownames(P) <- rn
   gn <- Filter(function(g) any(grepl(paste0("^", g, "\\."), rn)), c("LINK", "COV"))   # COV is absent with one covariate
   groups <- lapply(gn, function(g) grep(paste0("^", g, "\\."), rn)); names(groups) <- gn
-  out <- .closure(P, groups, alpha)
-  out$members <- P[, 1]; out$B_used <- ncol(P) - 1L; out$setting <- "in-sample checking"
+  out <- .closure(P, groups, alpha, naming)
+  out$members <- P[, 1]; out$B_used <- ncol(P) - 1L; out$setting <- "in-sample checking"; out$robust <- robust
   out$dealiased <- colnames(mm)[-1][dcols]; out
 }

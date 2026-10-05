@@ -1,0 +1,4 @@
+"analysis","n","named","LINK","COV","dealiased","INTERCEPT","SLOPE","dev_n","dev_deaths","deaths","observed","predicted","slope"
+"in-sample",1000,"COV",0.075,0.005,"",NA,NA,NA,NA,NA,NA,NA,NA
+"in-sample, de-aliased",1000,"COV",0.965,0.005,"age tbsa male inh",NA,NA,NA,NA,NA,NA,NA,NA
+"external, cross-centre",449,"none",0.976,0.096,NA,0.096,0.311,551,96,54,0.120267260579065,0.138433213772846,1.20318023368176

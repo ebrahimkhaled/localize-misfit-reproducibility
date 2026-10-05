@@ -1,0 +1,3 @@
+"block","file","rep","robust","named_LINK","named_COV","p_LINK","p_COV"
+"9","logit_C1_r010_n1000",84,FALSE,FALSE,FALSE,0.055,0.395
+"9","logit_C1_r010_n1000",84,TRUE,TRUE,FALSE,0.03,0.53
