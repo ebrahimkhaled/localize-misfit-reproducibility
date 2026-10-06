@@ -158,7 +158,8 @@ localize_external <- function(y, p, X, M = 999L, alpha = 0.05, calibration = c("
   groups <- lapply(names(mem), function(g) grep(paste0("^", g, "\\."), rownames(P)))
   names(groups) <- names(mem)
   out <- .closure(P, groups, alpha, naming)
-  out$members <- P[, 1]; out$setting <- "external validation"; out$calibration <- calibration; out$robust <- robust; out
+  out$members <- P[, 1]; out$setting <- "external validation"; out$calibration <- calibration; out$robust <- robust
+  out$alpha <- alpha; out$n <- length(y); class(out) <- "gof_localize"; out   # the class of the package version
 }
 
 ## IN-SAMPLE checking of a fitted binomial glm (logit link); covariates = the model frame's numeric predictors.
@@ -201,5 +202,6 @@ localize_insample <- function(fit, X, B = 199L, alpha = 0.05, dealias = FALSE, c
   groups <- lapply(gn, function(g) grep(paste0("^", g, "\\."), rn)); names(groups) <- gn
   out <- .closure(P, groups, alpha, naming)
   out$members <- P[, 1]; out$B_used <- ncol(P) - 1L; out$setting <- "in-sample checking"; out$robust <- robust
-  out$dealiased <- colnames(mm)[-1][dcols]; out
+  out$dealiased <- colnames(mm)[-1][dcols]
+  out$alpha <- alpha; out$n <- nrow(mm); class(out) <- "gof_localize"; out
 }

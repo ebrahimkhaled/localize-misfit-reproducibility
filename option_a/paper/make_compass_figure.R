@@ -1,7 +1,7 @@
 ## archive root: the environment variable LOCALIZE_ARCHIVE_ROOT, or the working directory (see README)
 .ROOT <- normalizePath(Sys.getenv("LOCALIZE_ARCHIVE_ROOT", "."), winslash = "/")
 Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
-# make_compass_figure.R -- Figure 4 of the paper: the display that plot_localize() draws (../R/localize_plot.R), for the
+# make_compass_figure.R -- Figure 4 of the paper: the two panels that plot() draws for a verdict (../R/localize_plot.R), for the
 # transported SUPPORT model M0 before and after its intercept update. Data: ../support_closure_full.rds
 # (support_closure_full.R; its single-part p-values are checked against support_split_first.csv).
 # Writes fig_compass.pdf in greys for the journal and fig_compass_color.pdf for the preprint and the reading copy.
@@ -16,8 +16,8 @@ draw <- function(colour) {
     rw <- rows[[i]]
     graphics::plot.new(); graphics::text(.02, .62, rw$t, adj = 0, font = 2, cex = .78)
     graphics::text(.02, .3, rw$s, adj = 0, cex = .66, col = "grey25")
-    localize_compass(rw$r, colour, if (i == 1) "Misfit compass")
-    localize_lattice(rw$r, colour, if (i == 1) "Closed testing: every set of parts")
+    .loc_compass(rw$r, colour, if (i == 1) "Misfit compass")
+    .loc_lattice(rw$r, colour, if (i == 1) "Closed tests")
   }
 }
 grDevices::cairo_pdf("fig_compass.pdf", width = 7.2, height = 6.2, family = "Helvetica", pointsize = 11); draw(FALSE); grDevices::dev.off()

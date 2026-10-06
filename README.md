@@ -10,7 +10,7 @@ code that produced those results.
 
 ```
 option_a/R/localize_groups.R      the procedure: localize_external() and localize_insample()
-option_a/R/localize_plot.R        the verdict display: plot_localize(), localize_compass(), localize_lattice()
+option_a/R/localize_plot.R        plot() for a verdict: misfit compass and lattice of closed tests (class gof_localize)
 option_a/run_sim_groups.R          main simulation (Table 2); results in option_a/rows/, summary SIM_GROUPS.csv
 option_a/analyze_sim_groups.py     builds SIM_GROUPS.csv from option_a/rows/
 option_a/run_purity_prob.R         probability-scale purity check; option_a/rows_prob/, PURITY_PROB.csv
