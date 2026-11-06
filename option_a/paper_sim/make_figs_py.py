@@ -23,11 +23,15 @@ lg = lambda p: np.log(p / (1 - p)); ex = lambda e: 1 / (1 + np.exp(-e))
 
 def concept():
     f = plt.figure(figsize=(7.2, 2.95))
-    p = np.linspace(.01, .99, 200); e = lg(p)
+    p = np.concatenate([np.geomspace(1e-5, .01, 80), np.linspace(.01, .99, 300)[1:-1], 1 - np.geomspace(.01, 1e-5, 80)]); e = lg(p)
+    ## link: the misfit g = (true - predicted) / (p(1 - p)) of equation (1) is an even function of the score with its weighted mean
+    ## removed, so its intercept and slope parts are zero (predicted risks spread evenly over 0 to 1)
+    q = np.linspace(.0005, .9995, 2000); sh = lambda v: 1 / np.cosh(v / 1.5); w = q * (1 - q)
+    gl = lambda v: -1.1 * (sh(v) - np.sum(w * sh(lg(q))) / np.sum(w))
     panels = [("Intercept", "overall risk too high", [(ex(e - .9), BLUE, "-")], "Update the intercept"),
               ("Slope", "risks too extreme", [(ex(.55 * e), BLUE, "-")], "Logistic recalibration"),
-              ("Link", "curved relation with risk", [(ex(e + .75 * np.sin(1.1 * e)), BLUE, "-")], "Flexible recalibration"),
-              ("Covariates", "equal predicted risk, unequal true risk", [(ex(e + .95), ORANGE, "-"), (ex(e - .95), AQUA, "-"), (p, BLUE, "-")], "Revise the model")]
+              ("Link", "curved relation with risk", [(p + p * (1 - p) * gl(e), BLUE, "-")], "Flexible recalibration"),
+              ("Covariates", "equal predicted risk, unequal true risk", [(p + p * (1 - p), ORANGE, "-"), (p - p * (1 - p), AQUA, "-"), ((2 * p - p ** 2 + p ** 2) / 2, BLUE, "-")], "Revise the model")]
     L, W, G = .055, .205, .036
     for i, (nm, sub, curves, up) in enumerate(panels):
         ax = f.add_axes([L + i * (W + G), .36, W, .47])
