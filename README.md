@@ -3,7 +3,7 @@
 Ebrahim Khaled Ebrahim, Osama Abd El-Aziz Hussein and Ahmed El-Kotory, Department of Statistics, Faculty of Business,
 Alexandria University, Egypt.
 
-## Version 2.1.1: what the paper uses
+## Version 2.1.2: what the paper uses
 
 ```
 option_a/R/localize_update.R        localize_external_update(): the default, updated-model reference with Holm's correction;

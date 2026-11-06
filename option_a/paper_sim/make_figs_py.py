@@ -143,7 +143,7 @@ def burn():
         for i, k in enumerate(G):
             v = -np.log10(g["p_" + k].values)
             ax.scatter(v + rng.uniform(-.015, .015, len(v)), i + rng.uniform(-.2, .2, len(v)), s=4, color="#c9c8c2", lw=0, zorder=2)
-            ob = -np.log10(float(it.loc[m, k]))
+            ob = -np.log10(float(it.loc[m, "plain_" + k]))   # the reference of the grey points: no centre effect
             ax.scatter(ob, i, s=46, color=col, marker=mk, ec="white", lw=.7, zorder=4)
         ax.set_yticks(range(4)); ax.set_yticklabels([x.lower() for x in G], style="italic"); ax.set_ylim(3.5, -.5); ax.set_xlim(0, 3.1)
         ax.set_xticks([0, 1, 2, 3]); ax.set_xticklabels(["1", "0.1", "0.01", "0.001"])
