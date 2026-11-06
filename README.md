@@ -1,7 +1,30 @@
-# Reproducibility archive: One goodness-of-fit test is not enough: error-controlled localization of misfit in logistic risk models
+# Reproducibility archive: Which update does a clinical risk model need? Error-controlled localization of misfit in logistic risk models
 
 Ebrahim Khaled Ebrahim, Ahmed El-Kotory and Osama Abd El-Aziz Hussein, Department of Statistics, Faculty of Business,
 Alexandria University, Egypt.
+
+## Version 2.0.0: what the paper uses
+
+```
+option_a/R/localize_update.R        localize_external_update(): the default, updated-model reference with Holm's correction;
+                                    options cluster and tau (centre-effect reference) and main (see below)
+option_a/R/localize_size.R          localize_size(): size of each part, chance level and noise interval
+option_a/R/localize_groups.R        group bases, frozen-model reference and the in-sample check
+option_a/R/localize_plot.R          plot() for a verdict
+option_a/run_sim3.R                 main simulation (twelve designs, eight settings); sim3_rows/, one row per data set
+option_a/run_davis.R                Brier-score procedure and closed testing with a flexible step, same data sets; sim2d_rows/, rows_davis/
+option_a/run_rivals_update.R        focused comparison; rows_update/; run_vergouwe.R, vergouwe_rows/ for the rivals
+option_a/analyze_sim2.py, analyze_davis.py   summaries (SIM2_*.csv, RIVALS_DAVIS.csv)
+option_a/apps_update.R, size_apps.R          SUPPORT and burn applications
+option_a/burn_iecv2.R               burn internal-external cross-validation with all refits repeated in the simulations
+option_a/theory/check_*.R           stress tests, clustering, machine-learning predictor, size checks (CHECK_*.csv)
+option_a/paper_sim/                 scripts that write the tables and figures
+```
+Set `main = FALSE` for risks pooled by cross-validation: they are not fully frozen, and the main-effects member responds to the
+differences between folds. Scripts carry the local path of the study in `HERE`; change it to the archive folder before running.
+`run_sim2.R` is kept because `run_sim3.R` was generated from it; the data sets of the old cells are identical.
+
+## Earlier material (frozen-model reference)
 
 This archive regenerates every table and figure of the paper from deposited per-data-set results, and holds the
 code that produced those results.

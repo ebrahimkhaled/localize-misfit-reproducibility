@@ -1,6 +1,3 @@
-## archive root: the environment variable LOCALIZE_ARCHIVE_ROOT, or the working directory (see README)
-.ROOT <- normalizePath(Sys.getenv("LOCALIZE_ARCHIVE_ROOT", "."), winslash = "/")
-Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
 # localize_groups.R -- closed-testing localization of misfit over ORTHOGONAL groups (Option A).
 #
 # Each group asks one question and has its own Cauchy combination of score tests whose bases are confined to that

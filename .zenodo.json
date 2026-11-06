@@ -1,7 +1,7 @@
 {
-  "title": "Reproducibility archive: One goodness-of-fit test is not enough: error-controlled localization of misfit in logistic risk models",
+  "title": "Reproducibility archive: Which update does a clinical risk model need? Error-controlled localization of misfit in logistic risk models",
   "upload_type": "dataset",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "language": "eng",
   "license": "cc-by-4.0",
   "access_right": "open",
@@ -22,7 +22,7 @@
       "orcid": "0000-0002-6576-4912"
     }
   ],
-  "description": "<p>Code, per-data-set results and input data for the study of error-controlled localization of misfit in logistic risk models: a closed-testing procedure that splits a misfit into four orthogonal parts (calibration in the large, calibration slope, link shape, covariate structure) and names the parts that fail, in-sample and in external validation.</p><p>The archive holds the R implementation (localize_groups.R), the simulation and application scripts, one file per simulation cell with one row per data set, the summary files behind every table and figure, the scripts that write the tables and the figure, the public SUPPORT2 data and the stored data sets of the corrupted-records check. Code is licensed GPL-3; results and documentation CC BY 4.0.</p>",
+  "description": "<p>Code, per-data-set results and input data for a procedure that chooses the update a clinical risk model needs at external validation. It splits a misfit into four parts (overall risk, slope, curved link, misfit among patients with the same predicted risk), tests each part against the model already updated for the simpler parts, and names the parts with Holm's correction.</p><p>Version 2.0.0 adds the updated-model reference (localize_update.R), the part sizes (localize_size.R), the main simulation with its per-data-set results (sim3_rows), the comparisons with closed testing and the Brier-score procedure (sim2d_rows, rows_davis), the applications, the stress tests and the scripts for every table and figure. Code is licensed GPL-3; results and documentation CC BY 4.0.</p>",
   "keywords": [
     "goodness-of-fit",
     "logistic regression",

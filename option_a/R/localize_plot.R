@@ -1,6 +1,3 @@
-## archive root: the environment variable LOCALIZE_ARCHIVE_ROOT, or the working directory (see README)
-.ROOT <- normalizePath(Sys.getenv("LOCALIZE_ARCHIVE_ROOT", "."), winslash = "/")
-Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
 # localize_plot.R -- plot() method for a localization verdict (class "gof_localize", from localize_external() or
 # localize_insample()). Two panels:
 #   compass  one wedge per part; its length is the strength of evidence, -log10 p of the part's own test (capped at
@@ -55,7 +52,17 @@ Sys.setenv(LOCALIZE_ARCHIVE_ROOT = .ROOT)
   invisible(x)
 }
 
+## the closed tests that the naming rule uses: the Cauchy tests of every set of groups for the full closure; for Holm
+## and Bonferroni, the Bonferroni test of each set, min(1, |S| x the smallest single-group p-value in S), whose closure
+## is Holm's procedure
+.loc_sets <- function(x) {
+  if (is.null(x$naming) || x$naming == "closure") return(x$intersection)
+  sets <- names(x$intersection); single <- x$intersection[!grepl("+", sets, fixed = TRUE)]
+  stats::setNames(vapply(sets, function(s) { g <- .loc_split(s); min(1, length(g) * min(single[g])) }, 0), sets)
+}
+
 .loc_lattice <- function(x, colour = TRUE, head = NULL) {
+  x$intersection <- .loc_sets(x)
   pal <- .loc_pal(colour); alpha <- if (is.null(x$alpha)) 0.05 else x$alpha
   sets <- names(x$intersection); lev <- vapply(sets, function(s) length(.loc_split(s)), 1L); K <- max(lev)
   hh <- function(k) .12 * k + .17; hw <- .64
