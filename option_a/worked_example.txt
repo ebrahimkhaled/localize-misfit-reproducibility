@@ -1,0 +1,30 @@
+
+Localization of misfit: updated-model reference
+
+data:     chronic$y and p (n = 4130)
+setting:  external validation of frozen predictions
+reference: updated model, 999 draws
+
+p-values by group (alone, and adjusted by Holm over the groups):
+           alone adjusted named
+INTERCEPT 0.0010   0.0040     *
+SLOPE     0.6370   0.6370      
+LINK      0.0110   0.0220     *
+COV       0.0010   0.0040     *
+
+groups named (Holm over the groups) at FWER 0.05: INTERCEPT + LINK + COV
+recommended update: revise the model; recalibration cannot repair misfit among
+  patients who share a score
+
+
+Size of each part of the misfit, percentage points of risk
+
+           size chance excess noise.lo noise.hi
+INTERCEPT 29.59   0.57  29.02    28.09    29.58
+SLOPE      0.16   0.28  -0.12    -0.61     0.15
+LINK       0.54   0.54   0.00    -0.55     0.40
+COV        4.96   3.29   1.67     1.16     2.14
+
+calibration intercept -1.773 (-1.873 to -1.673), slope 0.929 (0.603 to 1.255)
+integrated calibration index 29.69
+

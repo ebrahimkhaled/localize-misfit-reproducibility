@@ -83,7 +83,7 @@ for _, q in st.iterrows():
     L.append("%.1f & %s & %.2f & %.2f & %.2f & %.2f \\\\" % (q.c, format(int(q.n), ","), q.true, q.excess, q.lo, q.hi))
 L += [r"\bottomrule", r"\end{tabular}", r"\end{table}", ""]
 w = rd("tab_sim2_web.tex")
-io.open(os.path.join(H, "tab_web_update.tex"), "w", encoding="utf-8", newline="\n").write(w + "\n" + "\n".join(L))
+io.open(os.path.join(H, "tab_web_update.tex"), "w", encoding="utf-8", newline="\n").write((w + "\n" + "\n".join(L)).replace(r"\small", r"\footnotesize"))
 
 b = rd("references.bib")
 if "localizearchive2026" not in b:

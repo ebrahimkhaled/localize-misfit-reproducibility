@@ -1,9 +1,9 @@
-# Reproducibility archive: Which update does a clinical risk model need? Error-controlled localization of misfit in logistic risk models
+# Reproducibility archive: Which update does a clinical risk model need? Localization of misfit in logistic risk models
 
-Ebrahim Khaled Ebrahim, Ahmed El-Kotory and Osama Abd El-Aziz Hussein, Department of Statistics, Faculty of Business,
+Ebrahim Khaled Ebrahim, Osama Abd El-Aziz Hussein and Ahmed El-Kotory, Department of Statistics, Faculty of Business,
 Alexandria University, Egypt.
 
-## Version 2.0.0: what the paper uses
+## Version 2.1.0: what the paper uses
 
 ```
 option_a/R/localize_update.R        localize_external_update(): the default, updated-model reference with Holm's correction;
@@ -18,6 +18,7 @@ option_a/analyze_sim2.py, analyze_davis.py   summaries (SIM2_*.csv, RIVALS_DAVIS
 option_a/apps_update.R, size_apps.R          SUPPORT and burn applications
 option_a/burn_iecv2.R               burn internal-external cross-validation with all refits repeated in the simulations
 option_a/theory/check_*.R           stress tests, clustering, machine-learning predictor, size checks (CHECK_*.csv)
+option_a/worked_example.R           the worked example of the paper, with the functions of the R package ebrahim.gof; output in worked_example.txt
 option_a/paper_sim/                 scripts that write the tables and figures
 ```
 Set `main = FALSE` for risks pooled by cross-validation: they are not fully frozen, and the main-effects member responds to the
