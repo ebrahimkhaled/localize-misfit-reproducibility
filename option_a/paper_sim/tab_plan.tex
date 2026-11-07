@@ -1,0 +1,10 @@
+\begin{table}[ht]\centering\footnotesize
+\caption{SUPPORT, external analyses (the column ``$\epsilon$ updated'' uses the weights of the intercept update, as the \textsc{slope} test of the updated-model reference does): smallest mean miscalibration $\delta$ and logit-scale slope error $\epsilon$ that the single-member tests detect with power .80 at level .05 (Corollary~\ref{cor:power}), computed from the covariates and frozen predictions only, with the observed and mean predicted risk.}\label{tab:plan}
+\begin{tabular}{llrrrrrr}\toprule setting & model & $n$ & $\delta$ & $\epsilon$ & $\epsilon$ updated & observed & predicted\\ \midrule
+external random & M0 & 4437 & 0.018 & 0.214 & 0.216 & 0.260 & 0.266\\
+external random & M2 & 4437 & 0.018 & 0.161 & 0.161 & 0.260 & 0.266\\
+external transported & M0 & 4130 & 0.021 & 0.306 & 0.466 & 0.104 & 0.400\\
+external transported & M2 & 4130 & 0.021 & 0.226 & 0.306 & 0.104 & 0.377\\
+external random & neural network & 4437 & 0.018 & 0.142 & 0.143 & 0.260 & 0.266\\
+external transported & neural network & 4130 & 0.021 & 0.197 & 0.260 & 0.104 & 0.376\\
+\bottomrule\end{tabular}\end{table}

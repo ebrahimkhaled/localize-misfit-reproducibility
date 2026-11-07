@@ -1,7 +1,7 @@
 # worked_example.R -- the worked example of the paper's software section, run with the package functions: the SUPPORT model M0
 # developed on acute diagnoses and validated on chronic ones. The seeds are those of apps_update.R and size_apps.R, so the
 # output must equal the paper's verdict and sizes. Output worked_example.txt.
-library(ebrahim.gof)
+suppressMessages({ library(splines); devtools::load_all("C:/Users/ebrah/.cursor-tutor/projects/ebgof-release-2.10.0", quiet = TRUE) })
 HERE <- "C:/Users/ebrah/.gemini/Projects/PDFs/Paper_Ebrahim_Frangiton/learned-def/option_a"
 s <- read.csv("C:/Users/ebrah/.gemini/Projects/PDFs/Paper_Ebrahim_Frangiton/paper_deepgof/medical_example/data/support2.csv",
               na.strings = c("NaN", "NA", ""))

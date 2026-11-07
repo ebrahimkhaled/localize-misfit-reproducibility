@@ -34,6 +34,9 @@ def block(metric, design, cols, scale=1.0, nd=2):
     lo = min(m[:-1])
     s = [("\\textbf{%.*f}" % (nd, v)) if abs(v - lo) < 1e-9 else "%.*f" % (nd, v) for v in m[:-1]] + ["%.*f" % (nd, m[-1])]
     lines.append("\\midrule\nmean of the eight rows & " + " & ".join(s) + " \\\\")
+    m7 = [g.drop("null")[k].mean() * scale for k in cols]; lo7 = min(round(x, nd) for x in m7[:-1])
+    s7 = [("\\textbf{%.*f}" % (nd, v)) if abs(round(v, nd) - lo7) < 1e-9 else "%.*f" % (nd, v) for v in m7[:-1]] + ["%.*f" % (nd, m7[-1])]
+    lines.append("mean of the seven departures & " + " & ".join(s7) + " \\\\")
     return "\n".join(lines)
 
 

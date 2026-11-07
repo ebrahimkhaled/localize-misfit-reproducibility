@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Held-out patients in SUPPORT: mean log-loss ($\times100$; lower is better) of each update, fitted on a random half of the validation patients and scored on the other half (20 halves). Smallest in each column in bold. The verdict row gives the most demanding part named on all validation patients.}
+\label{t:heldout}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{Similar patients} & \multicolumn{2}{c}{Transported} \\
+Update & M0 & M2 & M0 & M2 \\
+\midrule
+Frozen model & 55.73 & 54.00 & 55.43 & 52.65 \\
+Intercept update & 55.76 & 54.04 & 32.94 & 32.67 \\
+Logistic recalibration & 55.81 & 54.08 & 32.98 & 32.68 \\
+Flexible recalibration & 55.71 & \textbf{53.96} & 33.00 & 32.68 \\
+Ridge revision & \textbf{54.64} & 54.03 & \textbf{32.60} & \textbf{32.60} \\
+\midrule
+Verdict & \textsc{cov} & \textsc{link} & \textsc{cov} & \textsc{cov} \\
+\bottomrule
+\end{tabular}
+\end{table}

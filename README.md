@@ -3,7 +3,7 @@
 Ebrahim Khaled Ebrahim, Osama Abd El-Aziz Hussein and Ahmed El-Kotory, Department of Statistics, Faculty of Business,
 Alexandria University, Egypt.
 
-## Version 2.1.2: what the paper uses
+## Version 2.2.0: what the paper uses
 
 ```
 option_a/R/localize_update.R        localize_external_update(): the default, updated-model reference with Holm's correction;
@@ -12,6 +12,8 @@ option_a/R/localize_size.R          localize_size(): size of each part, chance l
 option_a/R/localize_groups.R        group bases, frozen-model reference and the in-sample check
 option_a/R/localize_plot.R          plot() for a verdict
 option_a/run_sim3.R                 main simulation (twelve designs, eight settings); sim3_rows/, one row per data set
+option_a/run_sim4.R                 frozen model with estimated coefficients; sim4_rows/, analyze_sim4.py, SIM4_*.csv
+option_a/heldout_accuracy.R         held-out accuracy on SUPPORT and the burn data; heldout_*.csv, plan_updated.csv
 option_a/run_davis.R                Brier-score procedure and closed testing with a flexible step, same data sets; sim2d_rows/, rows_davis/
 option_a/run_rivals_update.R        focused comparison; rows_update/; run_vergouwe.R, vergouwe_rows/ for the rivals
 option_a/analyze_sim2.py, analyze_davis.py   summaries (SIM2_*.csv, RIVALS_DAVIS.csv)

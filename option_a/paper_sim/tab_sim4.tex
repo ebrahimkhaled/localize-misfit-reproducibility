@@ -1,0 +1,37 @@
+\begin{table}[p]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\caption{A frozen model with estimated coefficients: a main-effects model fitted on a development sample ($n_d$ patients) from the baseline population, then validated at 20\% prevalence with 100, 200 or 400 expected events; both covariate designs, 200 data sets each, 9,600 in all. \textsc{cov}: share of data sets naming it. Gain: when \textsc{cov} was named, the error of the update the verdict would otherwise prescribe minus the error of the covariate revision, with its standard error (positive: revision helped). The remaining columns give the mean absolute error of the risks of new patients, in percentage points: the frozen model, following the verdict, closed testing with the covariate revision as its last step, always recalibrating, always revising the covariates, and always refitting every coefficient.}
+\label{tab:estdev}
+\begin{tabular}{llrrlrrrrrr}
+\toprule
+Setting & $n_d$ & Events & \textsc{cov} & Gain (SE) & Frozen & Verdict & Closed & Recal. & Revise & Refit \\
+\midrule
+Correct form & 500 & 100 & 0.105 & $+0.96$ (0.13) & 3.54 & 3.41 & 3.30 & 3.50 & 3.24 & 3.59 \\
+Correct form & 500 & 200 & 0.333 & $+1.06$ (0.06) & 3.48 & 2.98 & 2.79 & 3.22 & 2.70 & 2.46 \\
+Correct form & 500 & 400 & 0.713 & $+1.25$ (0.04) & 3.59 & 2.37 & 2.30 & 3.18 & 2.27 & 1.74 \\
+Correct form & 2,000 & 100 & 0.025 & $-1.15$ (0.31) & 1.71 & 1.82 & 1.90 & 2.29 & 2.18 & 3.59 \\
+Correct form & 2,000 & 200 & 0.043 & $+0.10$ (0.15) & 1.76 & 1.80 & 1.80 & 1.93 & 1.85 & 2.50 \\
+Correct form & 2,000 & 400 & 0.155 & $+0.24$ (0.05) & 1.75 & 1.70 & 1.63 & 1.70 & 1.56 & 1.76 \\
+\addlinespace
+Transport & 500 & 100 & 0.043 & $-0.40$ (0.14) & 11.59 & 2.15 & 2.19 & 1.88 & 2.24 & 2.70 \\
+Transport & 500 & 200 & 0.147 & $+0.04$ (0.06) & 11.50 & 1.77 & 1.82 & 1.64 & 1.90 & 1.86 \\
+Transport & 500 & 400 & 0.355 & $+0.17$ (0.04) & 11.63 & 1.50 & 1.50 & 1.50 & 1.57 & 1.33 \\
+Transport & 2,000 & 100 & 0.018 & $-0.36$ (0.19) & 11.58 & 1.75 & 1.82 & 1.47 & 1.83 & 2.70 \\
+Transport & 2,000 & 200 & 0.030 & $-0.49$ (0.12) & 11.54 & 1.40 & 1.48 & 1.12 & 1.55 & 1.88 \\
+Transport & 2,000 & 400 & 0.060 & $-0.28$ (0.09) & 11.59 & 1.12 & 1.17 & 0.95 & 1.29 & 1.29 \\
+\addlinespace
+Curved link & 500 & 100 & 0.158 & $+1.10$ (0.11) & 4.18 & 4.00 & 3.75 & 4.12 & 3.56 & 3.78 \\
+Curved link & 500 & 200 & 0.487 & $+1.42$ (0.05) & 4.23 & 3.26 & 3.07 & 3.91 & 2.96 & 2.92 \\
+Curved link & 500 & 400 & 0.755 & $+1.28$ (0.05) & 4.05 & 2.50 & 2.50 & 3.65 & 2.45 & 2.34 \\
+Curved link & 2,000 & 100 & 0.028 & $-0.02$ (0.23) & 2.91 & 2.93 & 2.92 & 2.79 & 2.84 & 3.75 \\
+Curved link & 2,000 & 200 & 0.072 & $+0.53$ (0.13) & 2.91 & 2.66 & 2.68 & 2.58 & 2.47 & 2.86 \\
+Curved link & 2,000 & 400 & 0.228 & $+0.51$ (0.06) & 2.91 & 2.14 & 2.28 & 2.46 & 2.07 & 2.30 \\
+\addlinespace
+Interaction & 500 & 100 & 0.463 & $+1.46$ (0.06) & 5.87 & 5.22 & 5.17 & 5.87 & 4.73 & 5.45 \\
+Interaction & 500 & 200 & 0.890 & $+2.00$ (0.04) & 5.95 & 4.02 & 4.29 & 5.81 & 3.91 & 4.77 \\
+Interaction & 500 & 400 & 0.998 & $+2.40$ (0.04) & 5.84 & 3.13 & 3.45 & 5.59 & 3.13 & 4.37 \\
+Interaction & 2,000 & 100 & 0.265 & $+0.62$ (0.07) & 4.86 & 4.74 & 4.80 & 4.99 & 4.39 & 5.42 \\
+Interaction & 2,000 & 200 & 0.713 & $+1.29$ (0.03) & 4.89 & 3.90 & 4.45 & 4.84 & 3.67 & 4.75 \\
+Interaction & 2,000 & 400 & 0.953 & $+1.72$ (0.03) & 4.88 & 2.99 & 3.69 & 4.74 & 2.95 & 4.33 \\
+\bottomrule
+\end{tabular}
+\end{table}
